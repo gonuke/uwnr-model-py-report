@@ -2,7 +2,7 @@
 \ProvidesClass{ansconf}[2014/09/25]
 
 \LoadClass[12pt,twoside]{article}
-\typeout{Loading MC2015 document class: includes [12pt,twoside]{article}}
+\typeout{Loading UWNR_modeling document class: includes [12pt,twoside]{article}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages needed
@@ -58,11 +58,8 @@
 % Header/footer for first page
 \fancypagestyle{plain}{
   \fancyhf{}
-  \lhead{\scriptsize{\emph{ANS MC2015 - Joint International Conference
-        on Mathematics and Computation (M\!\&\!C), Supercomputing in Nuclear
-        Applications (SNA) and the Monte Carlo (MC) Method} $\cdot$ Nashville,
-      Tennessee $\cdot$ April 19--23, 2015, on CD-ROM, American Nuclear
-      Society, LaGrange Park, IL (2015)}}
+  \lhead{\scriptsize{\emph{
+        }}}
   \lfoot{}
 }
 
