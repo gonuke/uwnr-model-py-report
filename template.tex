@@ -145,7 +145,12 @@ Importantly, the second through fifth (2-5) digits of a cell number refer to the
 
 \subsection{Repeated Structure Strategy}
 
-Since the UWNR core model, like most reactor cores, is composed of repeated structures, both the python script and the resultant MCNP input file take advantage of this repetition.  Under this strategy, a so-called "master pin" is defined once and all other fuel pins are derived from this master pin with an appropriate geometric offset.  In order to allow each pin to be composed of different materials for burnup and fuel shuffling purposes, the lattice capability of MCNP was not used.  However, the "\texttt{like... but....}" capability was used to reduce the number of independent surface and cell definitions.
+Since the UWNR core model, like most reactor cores, is composed of repeated structures, both the python script and the resultant MCNP input file take advantage of this repetition.  Under this strategy, a so-called "master pin" is defined once and all other fuel pins are derived from this master pin.  So that each pin can contain a different material definition, to allow them to burnup independently, the "\texttt{like... but....}" capability was used to reduce the number of independent surface and cell definitions.  Each copy of a fuel pin has a modified material assignment, material density, and universe.  Each fuel pin is assigned to a universe that is identical to 4-digit number identical to digits 2-5 of the cell number.  
+
+The lattice capability of MCNP is used to make fuel bundles from sets of 4 pins, but each lattice position is explicitly filled with a different universe corresponding to the appropriate pin.  Another layer of lattices is used to load each bundle into specific core positions.  Because the control elements have a thickness that is different from a unit cell of this lattice, three separate lattices are necessary: north, center, and south.  Each lattice is defined from the same set of surfaces, however, with the north and south lattices offset to their appropriate locations.  Each lattice contains 9 grid positions in the east-west direction.  The center lattice contains 3 grid positions in the north-south direction, while the north and south latices each contain 2.  (See Figure YY (8?))
+
+The mapping of specific fuel pins, identified by their official UWNR ID, to bundles and then further to core positions is accomplished through simplified user input.  In particular, there is a mapping of bundle ID to core position using notation that corresponds to identifiers used by UWNR operators to refer to individual fuel bundles and to core locations.  This mapping is in \texttt{core\_configuration.py}, reflecting the fact that this level of configuration is easily modified during UWNR operation. In addition, there is a mapping of fuel pin ID to bundle ID and relative position within the bundle, again using notation that corresponds to UWNR operational practice.  This mapping is in \texttt{reactor\_data.py}, reflecting the fact that this level of configuration is rarely, if ever, changed during normal operating practices.  These two mappings are both necessary to establish the correspondence between specific pin IDs and core locations.
+
 
 \subsection{Geometric Hierarchy}\label{ssection:geom_hier}
 
@@ -208,26 +213,14 @@ vendor supplied masses for each slug to select an appropriate slug-specific
 density, thus conserving total mass and total fissile mass.
 
 Further modeled geometries are specified in Appendix A.
-\newpage
-
 
 \section{Material Definitions}\label{section:materials}
-\begin{enumerate}
-\item As-Built fuel composition.
 
-Following material data are given by the vendor\footnote{CERCA (subsidiary of AREVA)} as As-Built fuel composition. Composition data are basically given for each slug in a fuel pin. A fuel pin is made of three slug sections. A fuel bundle is made of four fuel pins.
+At this time, three different estimations of the fuel initial compositions are available.  In each case, a mapping is generated between fuel pin ID and slug position to the material composition and density.  Different levels of approximation are invoked by importing different python files each with the same interface to provide this map.
 
-Notation: 
-\begin{itemize}
-\item $f_{a,X/Y}$ - atom ratio of component $X$ to $Y$ in a fuel slug,
-\item $f_{m,X/Y}$ - mass ratio of component $X$ to $Y$ in a fuel slug,
-\item $f_{m,X}$ - mass fraction of component $X$ (i.e. mass ratio of $X$ to total mass),
-\item $m_X$ - mass of component $X$ in a fuel slug [g],
-\item $M_X$ - Atomic mass of component $X$ [g/mol]
-\end{itemize}
+\subsection{As-Built fuel composition}
 
-For each fuel slug, the following data is available in documentation from the vendor and included as a 
-version-controlled comma-separated values (CSV) file in the code repository.
+The most exact representation of materials defines this fuel composition map based on slug-averaged data provideby the vendor\footnote{CERCA (subsidiary of AREVA)}. The following composition data are given for each of the three slug sections in a fuel pin.  This data is included as a version-controlled comma-separated values (CSV) file in the code repository.
 
 \begin{tabular}{|c|c|l|}
 \hline
@@ -243,24 +236,47 @@ Total U mass & $m_{U}$ & Total mass of uranium elements\\
 U-235 mass & $m_{U235}$ & Mass of uranium-235 isotope\\ \hline
 \end{tabular}
 
+\textbf{Notation}
+\begin{itemize}
+\item $f_{a,X/Y}$ - atom ratio of component $X$ to $Y$ in a fuel slug,
+\item $f_{m,X/Y}$ - mass ratio of component $X$ to $Y$ in a fuel slug,
+\item $f_{m,X}$ - mass fraction of component $X$ (i.e. mass ratio of $X$ to total mass),
+\item $m_X$ - mass of component $X$ in a fuel slug [g],
+\item $M_X$ - Atomic mass of component $X$ [g/mol]
+\end{itemize}
+
+In addition to this data from the vendor, three quantites are taken from the
+literature to represent impurities:
+\begin{itemize}
+\item $f_{m,U234/U235}$ : Industry accepted average value.
+\item $f_{m,U236/U235}$ : Industry accepted average value.
+\item $f_{m,Hf/Zr}$  : Texas A\&M University LEU Conversion Report \cite{xx}
+\end{itemize}
+
 Using the given data above, following material data are calculated.
-\begin{eqnarray}
-m_{U234} &=& m_{U235} \cdot f_{m,U234/U235} \footnote{Industry accepted average value.}\\
-m_{U236} &=& m_{U235} \cdot f_{m,U236/U235}\footnote{Industry accepted average value.}\\
+\begin{eqnarray*}
+m_{U234} &=& m_{U235} \cdot f_{m,U234/U235}\\
+m_{U236} &=& m_{U235} \cdot f_{m,U236/U235}\\
 m_{U238} &=& m_{U} - m_{U235} - m_{U234} - m_{U236}\\
 m_{C} &=&  f_{m,C} \cdot m_{tot}\\
 m_{Er} &=&  f_{m,Er} \cdot m_{tot}\\
 m_{Zr} + m_{Hf} + m_{H} &=& m_{tot} - m_u - m_C - m_{Er}\\
-m_{Hf} &=& m_{Zr} \cdot f_{m,Hf/Zr} \footnote{Texas A\&M University LEU Conversion Report}\\
+m_{Hf} &=& m_{Zr} \cdot f_{m,Hf/Zr}\\
 m_H &=& f_{m,H/Zr} \cdot m_{Zr} = f_{a,H/Zr} \cdot \frac{M_H}{M_{Zr}} \cdot m_{Zr}\\
 m_{Zr} &=& \frac{(m_{tot} - m_{U} - m_{C} - m_{Er})}{(1 + f_{a,H/Zr}\cdot \frac{M_{H}}{M_{Zr}} + f_{m,Hf/Zr})}
-\end{eqnarray}
+\end{eqnarray*}
 
-\end{enumerate}
+\subsection{As-Built pin-averaged fuel composition}
+
+Pin-averaged material compositions and densities are also available.  The purpose of this data is primarily to study the impact of varying the fidelity of initial compisition variations.  In this case, the fuel composition map is found by simply averaging the atomic number densitites of each isotope across the three slugs.  This is appropriate in this case because the slugs are assumed to have the same volume.
+
+\subsection{Safety Analysis Report compositions}
+
+The most approximate compositions are those described in the Safety Analysis Report.  In this case, uniform, core-averaged initial fuel compositions are described and the same composition is assigned to each entry in the fuel composition map.
 
 \section{Nuclear data}
-Both regular cross-section data and the thermal scattering cross section data is crucial to the accuracy of the model. The old MCNP model used endf/b-v s($\alpha,\beta$) cross-sections, and a mix of regular data for material definitions. The model now allows the user to set a desired cross-section library for every known isotope in the core. Updated thermal scattering cross section libraries were implemented for the correct fuel temperature (300K). Note, this 300 K temperature was used to verify the clean, cold core model (see Approach to critical). Currently, the model uses the endf/b-vii.1 cross section library.  
 
+Both regular cross-section data and the thermal scattering correction data ($s(\alpha,\beta)$) is crucial to the accuracy of the model. The model now allows the user to set a desired cross-section library for every known isotope in the core, but the default setting is to use the first entry in the user's \texttt{xsdir} file for cross-sections (commonly 300K ENDF/B-VII.1 data) and 300K ENDF/B-VII.1 data for thermal scattering corrections.  Note, this 300 K temperature was used to verify the clean, cold core model (see Section \ref{section:approach}). 
 
 \section{Analysis}\label{section:analysis}
 All of the analysis below (except burnup) was performed on the cold, clean, J-configuration core. This configuration is the original configuration used in 2009. It contained 21 fuel bundles and 14 reflector elements in an "H" configuration. The 2011 reshuffle put the core in a denser, "crucible" configuration. Figure \ref{fig:core_configurations} shows the J and K core configurations.
