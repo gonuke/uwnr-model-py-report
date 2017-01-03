@@ -188,7 +188,7 @@ Surfaces and cells are made for components in a level. Then they are combined as
 \end{enumerate}
 
 \section{Model Geometry}\label{section:geometry}
-Figure \ref{fig:fuel_xy} and Figure \ref{fig:fuel_yz} represent the modeled geometry of a fuel pin with arbitrary radial division, $R$, and axial division, $A$. In the figures, black strings represent the name of each surface, red numbers for the surface number and blue arrows for dimensions.  The number of radial and axial divisions is limited by their product, $R \cdot A \leq 99$, to accommodate the numbering scheme.  Later, analysis will show that this should allow for satisfactory discretization for this system. The fuel regions are numbered such that the radial segment varies more rapidly than the axial segment, or $MM = R\cdot(a-1) + (r-1)$, for radial segment, $r = 0, 1, 2, ..., (R-1)$, and axial segment, $a = 0, 1, 2, ..., (A-1)$.
+Figure \ref{fig:fuel_xy} and Figure \ref{fig:fuel_yz} represent the modeled geometry of a fuel pin with arbitrary radial division, $R$, and axial division, $A$. In the figures, black strings represent the name of each surface, red numbers for the surface number and blue arrows for dimensions.  The number of radial and axial divisions is limited by their product, $R \cdot A \leq 99$, to accommodate the numbering scheme.  Later, analysis will show that this should allow for satisfactory discretization for this system. The fuel regions are numbered such that the radial segment varies more rapidly than the axial segment, or $MM = R\cdot(N_A-1) + (N_R-1)$, for radial segment, $N_R = 0, 1, 2, ..., (R-1)$, and axial segment, $N_A = 0, 1, 2, ..., (A-1)$.
 
 \begin{figure}[H]
   \centering
