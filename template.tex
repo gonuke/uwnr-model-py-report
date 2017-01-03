@@ -142,7 +142,7 @@ Importantly, the second through fifth digits of a cell number refer to the posit
 Since the UWNR core model, like most reactor cores, is composed of repeated structures, both the python script and the resultant MCNP input file take advantage of this repetition.  Under this strategy, a so-called "master pin" is defined once and all other fuel pins are derived from this master pin with an appropriate geometric offset.  In order to allow each pin to be composed of different materials for burnup and fuel shuffling purposes, the lattice capability of MCNP was not used.  However, the "like... but...." capability was used to reduce the number of independent surface and cell definitions.
 
 \section{Model Geometry}\label{section:geometry}
-Figure \ref{fig:fuel_xy} and Figure \ref{fig:fuel_yz} represent the modeled geometry of a fuel pin with arbitrary radial division, $R$, and axial division, $A$. In the figures, black strings represent the name of each surface, Red numbers for the surface number and blue arrows for dimensions.
+Figure \ref{fig:fuel_xy} and Figure \ref{fig:fuel_yz} represent the modeled geometry of a fuel pin with arbitrary radial division, $R$, and axial division, $A$. In the figures, black normal letter represents the name of each surface, red number for the surface number and blue arrow for dimension, bold italic letter for sub-pin region number (M). For the sub-pin region numbering, $N_{R} = 0, 1, 2, ..., (R-1)$ and $N_{A} = 0, 1, 2, ..., (A-1)$.
 
 \begin{figure}[H]
   \centering
@@ -340,13 +340,19 @@ Eventually, the code will fully implement the nuclear engineering toolkit for ma
 \appendix
 \begin{figure}[H]
   \centering
-  \includegraphics[width=3.5in]{bundle_xy.pdf}
+  \includegraphics[width=5in]{bundle_xy.pdf}
   \caption{Fuel bundles, horizontal view.}
   \label{fig:bundle_xy}
 \end{figure}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=4.5in]{core_xy.pdf}
+  \includegraphics[width=5in]{Refl_xy.pdf}
+  \caption{Reflector element, horizontal view.}
+  \label{fig:Refl_xy}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7in]{core_xy.pdf}
   \caption{Core regions, horizontal view.}
   \label{fig:core_xy}
 \end{figure}
@@ -361,5 +367,11 @@ Eventually, the code will fully implement the nuclear engineering toolkit for ma
   \includegraphics[width=7in]{SBRB_xy.pdf}
   \caption{Safety Blades and Regulating blade, horizontal view.}
   \label{fig:SBRB_xy}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=3in]{TR_xy.pdf}
+  \caption{Transient rod, horizontal view.}
+  \label{fig:TR_xy}
 \end{figure}
 \end{document}
