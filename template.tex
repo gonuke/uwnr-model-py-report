@@ -175,29 +175,29 @@ Following material data are given by the vendor\footnote{CERCA (subsidiary of AR
 \item H/Zr atom fraction ($afrac_{H/Zr}$): Atomic fraction of Hydrogen to Zirconium atoms in a slug.
 \item Er wt\%: Weight percent of Erbium element in a slug.
 \item C wt\%: Weight percent of Carbon element in a slug.
-\item Total mass (m\textsubscript{tot}): Total mass of a slug in units of grams.
-\item Total U mass (m\textsubscript{U}): Total mass of Uranium elements in a slug in units of grams.
-\item U-235 mass (m\textsubscript{U235}): Mass of Uranium-235 isotope in a slug in units of grams.
+\item Total mass ($m_{tot}$): Total mass of a slug in units of grams.
+\item Total U mass ($m_{U}$): Total mass of Uranium elements in a slug in units of grams.
+\item U-235 mass ($m_{U235}$): Mass of Uranium-235 isotope in a slug in units of grams.
 \end{itemize}
 
 Using the given data above, following material data are calculated.
 \begin{itemize}
-\item U-234 mass (m\textsubscript{U234}): Mass of Uranium-234 isotope in a slug in units of grams.
-\newline $m\textsubscript{U234} = m\textsubscript{U235}\times mfrac\textsubscript{U234}\footnote{Industry accepted average value.}$
-\item U-236 mass (m\textsubscript{U236}): Mass of Uranium-236 isotope in a slug in units of grams.
-\newline $m\textsubscript{U236} = m\textsubscript{U235}\times mfrac\textsubscript{U236}\footnote{Industry accepted average value.}$
-\item U-238 mass (m\textsubscript{U238}): Mass of Uranium-238 isotope in a slug in units of grams.
-\newline $m\textsubscript{U238} = m\textsubscript{U} - m\textsubscript{U235} - m\textsubscript{U234} - m\textsubscript{U236}$
-\item C mass (m\textsubscript{C}): Mass of Carbon element in a slug in units of grams.
-\newline $m\textsubscript{C} = m\textsubscript{tot}\times (C wt\%)$
-\item Er mass (m\textsubscript{Er}): Mass of Erbium element in a slug in units of grams.
-\newline $m\textsubscript{Er} = m\textsubscript{tot}\times (Er wt\%)$
-\item Zr mass (m\textsubscript{Zr}): Mass of Zirconium element in a slug in units of grams.
-\newline $m\textsubscript{Zr} = \frac{(m\textsubscript{tot} - m\textsubscript{U} - m\textsubscript{C} - m\textsubscript{Er})}{(1 + afrac\textsubscript{H/Zr}\times \frac{M\textsubscript{H}}{M\textsubscript{Zr}} + mfrac\textsubscript{Hf/Zr}\footnote{Texas A\&M University LEU Conversion Report}}$
-\item Hf mass (m\textsubscript{Hf}): Mass of Hafnium element in a slug in units of grams.
-\newline $m\textsubscript{Hf} = m\textsubscript{Zr}\times mfrac\textsubscript{Hf/Zr}$
-\item H-1 mass (m\textsubscript{H1}): Mass of Hydrogen-1 isotope in a slug in units of grams.
-\newline $m\textsubscript{H1} = m\textsubscript{Zr}\times afrac\textsubscript{H/Zr}\times \frac{M\textsubscript{H1}}{M\textsubscript{Zr}}$
+\item U-234 mass ($m_{U234}$): Mass of Uranium-234 isotope in a slug in units of grams.
+\newline $m_{U234} = m_{U235}\times mfrac_{U234}\footnote{Industry accepted average value.}$
+\item U-236 mass ($m_{U236}$): Mass of Uranium-236 isotope in a slug in units of grams.
+\newline $m_{U236} = m_{U235}\times mfrac_{U236}\footnote{Industry accepted average value.}$
+\item U-238 mass ($m_{U238}$): Mass of Uranium-238 isotope in a slug in units of grams.
+\newline $m_{U238} = m_{U} - m_{U235} - m_{U234} - m_{U236}$
+\item C mass ($m_{C}$): Mass of Carbon element in a slug in units of grams.
+\newline $m_{C} = m_{tot}\times (C wt\%)$
+\item Er mass ($m_{Er}$): Mass of Erbium element in a slug in units of grams.
+\newline $m_{Er} = m_{tot}\times (Er wt\%)$
+\item Zr mass ($m_{Zr}$): Mass of Zirconium element in a slug in units of grams.
+\newline $m_{Zr} = \frac{(m_{tot} - m_{U} - m_{C} - m_{Er})}{(1 + afrac_{H/Zr}\times \frac{M_{H}}{M_{Zr}} + mfrac_{Hf/Zr}\footnote{Texas A\&M University LEU Conversion Report}}$
+\item Hf mass ($m_{Hf}$): Mass of Hafnium element in a slug in units of grams.
+\newline $m_{Hf} = m_{Zr}\times mfrac_{Hf/Zr}$
+\item H-1 mass ($m_{H1}$): Mass of Hydrogen-1 isotope in a slug in units of grams.
+\newline $m_{H1} = m_{Zr}\times afrac_{H/Zr}\times \frac{M_{H1}}{M_{Zr}}$
 \end{itemize}
 
 \end{enumerate}
