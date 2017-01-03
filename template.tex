@@ -212,7 +212,18 @@ appropriately combine the fixed slug length (and consequent volume) with the
 vendor supplied masses for each slug to select an appropriate slug-specific
 density, thus conserving total mass and total fissile mass.
 
-Further modeled geometries are specified in Appendix A.
+Additional figures are provided in Appendix A.
+
+\subsection{Control Element Height}
+
+Control element height is adjusted through the use of 5 independent
+transformations for which the z-translation is specified in the
+\texttt{core\_configuration.py} file.  These translations are defined as being
+relative to the fully inserted position, which is 1.5 inches below the bottom
+of the active fuel for all control elements except the transient rod.  The
+transient rod's fully inserted position is defined by reactor's licensing
+basis, and subject to change.  The current fully inserted position is defined
+in \texttt{reactor\_data.py}.
 
 \section{Material Definitions}\label{section:materials}
 
