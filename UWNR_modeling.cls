@@ -40,7 +40,7 @@
 \setlength{\footskip}{0.4in}
 
 \setlength{\parindent}{0.3in}
-\addtolength{\parskip}{1.0\baselineskip}
+\addtolength{\parskip}{0.5\baselineskip}
 
 \newcommand{\authorHead}[1]{\gdef\@authorHead{#1}}
 \newcommand{\shortTitle}[1]{\gdef\@shortTitle{#1}}
