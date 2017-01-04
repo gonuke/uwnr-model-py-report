@@ -146,3 +146,22 @@
               {\MakeTextUppercase{##1}}
   \setlength{\baselineskip}{14.5pt}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Take control of vertical spacing in lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{myitemize}
+{ \vspace{-\topsep}
+  \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \vspace{-\topsep}\end{itemize}                  } 
+\newenvironment{myenumerate}
+{ \vspace{-\topsep}
+  \begin{enumerate}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \vspace{-\topsep}\end{enumerate}                  } 
